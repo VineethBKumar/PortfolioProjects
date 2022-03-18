@@ -15,8 +15,7 @@ From PortfolioProject..NashvilleHousing
 Update NashvilleHousing
 Set SaleDate = convert(Date,SaleDate)
 
-/*Select SaleDate 
-From PortfolioProject..NashvilleHousing*/
+-- If it doesn't Update properly
 
 Alter Table NashvilleHousing
 Add SaleDateConverted Date
