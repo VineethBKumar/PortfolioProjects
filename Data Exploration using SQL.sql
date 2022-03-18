@@ -1,10 +1,19 @@
+/*
+
+Covid 19 Data Exploration 
+
+
+Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
+
+
+*/
+
 select * 
 from PortfolioProject .. CovidDeaths
 order by 3,4
 
---select * 
---from PortfolioProject .. CovidVaccinations
---order by 3,4
+
+-- Select Data that we are going to be starting with
 
 select location,date,total_cases,new_cases,total_deaths,population
 from PortfolioProject .. CovidDeaths
@@ -58,6 +67,7 @@ from PortfolioProject .. CovidDeaths
 where continent is not null
 order by 1,2
 
+
 select *
 from PortfolioProject..CovidVaccinations
 
@@ -70,6 +80,7 @@ on dea.location = vac.location
 and dea.date = vac.date 
 
 --Looking at Total Population vs Vaccinations
+-- Shows Percentage of Population that has recieved at least one Covid Vaccine
 
 select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
 Sum(convert(bigint,vac.new_vaccinations)) over (partition by dea.location order by dea.location, dea.date) 
@@ -81,7 +92,7 @@ and dea.date = vac.date
 where dea.continent is not null
 order by 2,3
 
---Use CTE
+-- Using CTE to perform Calculation on Partition By in previous query
 
 With PopvsVac (continent,location,date,population,new_vaccinations,RollingPeopleVaccinated)
 as
@@ -99,7 +110,7 @@ select *, (RollingPeopleVaccinated/population)*100
 from PopvsVac
 
 
---Temp Table
+-- Using Temp Table to perform Calculation on Partition By in previous query
 
 drop table if exists #PercentPopulationVaccinated
 create table #PercentPopulationVaccinated
