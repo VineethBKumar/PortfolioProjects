@@ -150,23 +150,3 @@ and dea.date = vac.date
 where dea.continent is not null
 
 
-Select *
-from PercentPopulationVaccinated
-
-
---For Tableau Portfolio project!!!
-
---We take these out as they are not included in the above queries and want to stay consistent
-
-select location, sum(cast(new_deaths as int)) as TotalDeathCount
-from PortfolioProject..CovidDeaths
-where continent is null
-and location not in ('World', 'European Union', 'International', 'High income', 'Low income', 'Upper middle income', 'Lower middle income')
-group by location
-order by TotalDeathCount desc
-
-
-select location,population, date, max(total_cases) as HighestInfectionCount, max((total_cases/population)) *100 as PercentPopulationInfected
-from PortfolioProject .. CovidDeaths
-group by location,population,date 
-order by PercentPopulationInfected desc
